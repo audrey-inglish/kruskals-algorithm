@@ -13,10 +13,7 @@ namespace Logic
 
         List<Edge> edges;
         List<Edge> solvedGraph;
-        int totalCost;
 
-        //default constructor could initialize a graph with a single vertice and no edges
-        //but it won't initialize any vertices -- that should be up to the user
         public Kruskal()
         {
             edges = new List<Edge>();
