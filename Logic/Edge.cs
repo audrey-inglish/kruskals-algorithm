@@ -10,14 +10,14 @@
         public Vertex Source { get; set; }
         public Vertex Destination { get; set; }
         public int Weight { get; set; }
-        public string Name { get => $"{Source.Name}" + $"{Destination.Name}"; }
+        public string Name { get => $"{Source.Name.ToString()}" + $"{Destination.Name.ToString()}"; }
 
-        public Edge(string name, int weight, Vertex src, Vertex dest)
+        public Edge(int weight, Vertex src, Vertex dest)
         {
-            this.name = name;
-            this.weight = weight;
-            this.src = src;
-            this.dest = dest;
+           
+            Weight = weight;
+            Source = src;
+            Destination = dest;
         }
 
         public int CompareTo(Edge other)

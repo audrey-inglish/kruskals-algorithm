@@ -8,15 +8,15 @@ namespace Logic
 {
     public class Vertex
     {
-        private char name;
+        //private char name;
         public char Name { get; }
         public int Rank { get; set; } //rank is used when you want to union sets and limit the depth of the overall tree
         public Vertex Root { get; set; }
 
 
-        public Vertex(char _name)
+        public Vertex(char name)
         {
-            name = _name;
+            Name = name;
             Rank = 0;
             this.Root = this;
         }
@@ -31,21 +31,23 @@ namespace Logic
             return this.Root;
         }
 
-        public static void Join(Vertex root1, Vertex root2) 
+        public static void Join(Vertex root1, Vertex root2)
         {
-            //using rank comparisons to minimize the depth of the tree
-            if(root2.Rank < root1.Rank)
+            // Using rank comparisons to minimize the depth of the tree
+            if (root1.Rank < root2.Rank)
             {
-                root2.Root = root1; //make root1 the parent of root2 if root2 has a lower rank
+                root1.Root = root2; // Make root2 the parent of root1 if root1 has a lower rank
             }
-            else if(root2.Rank > root1.Rank)
+            else if (root1.Rank > root2.Rank)
             {
-                root1.Root = root2;
+                root2.Root = root1;
             }
-            else //the roots are equal
+            else // The roots have equal rank
             {
-                root2.Rank++;
+                root2.Root = root1; // Arbitrarily choose root1 as the parent of root2
+                root1.Rank++; // Increment the rank of root1 to maintain balance
             }
         }
+
     }
 }
