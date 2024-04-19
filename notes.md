@@ -1,4 +1,4 @@
-#Notes
+# Notes
 
-##Brainstorm
+## Brainstorm
 
