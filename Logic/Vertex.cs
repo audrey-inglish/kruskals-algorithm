@@ -28,5 +28,22 @@ namespace Logic
             }
             return this.Root;
         }
+
+        public static void Join(Vertex root1, Vertex root2) 
+        {
+            //using rank comparisons to minimize the depth of the tree
+            if(root2.Rank < root1.Rank)
+            {
+                root2.Root = root1; //make root1 the parent of root2 if root2 has a lower rank
+            }
+            else if(root2.Rank > root1.Rank)
+            {
+                root1.Root = root2;
+            }
+            else //the roots are equal
+            {
+                root2.Rank++;
+            }
+        }
     }
 }
