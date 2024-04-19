@@ -101,7 +101,17 @@ public class FindMinimalTreeTests
         //checking that expected edges are present
         minSpanning.Should().ContainEquivalentOf(new Edge(1, vertices[0], vertices[2]));
         minSpanning.Should().ContainEquivalentOf(new Edge(4, vertices[1], vertices[2]));
-        minSpanning.Should().ContainEquivalentOf(new Edge(2, vertices[0], vertices[3]));
+        minSpanning.Should().ContainEquivalentOf(new Edge(2, vertices[3], vertices[0]));
+
+
+        //List of expected edge names
+        var expectedEdgeNames = new List<string> { "ac", "da", "bc" };
+
+        //Assert that each expected edge name is present in the minimum spanning tree
+        foreach (var expectedEdgeName in expectedEdgeNames)
+        {
+            minSpanning.Should().Contain(edge => edge.Name == expectedEdgeName);
+        }
 
     }
 }

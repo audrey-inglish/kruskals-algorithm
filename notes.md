@@ -16,9 +16,12 @@ and edges. The user has the freedom to apply the tool however they choose.
 
 ## UI
 The user will be able to fill out an adjacency matrix, outlining the edge weights between given vertices.
-A tree with labeled vertices and edges that aligns with the user's input will be rendered.
 
 When the user presses the "Find Best Path" button, a sequence of vertices representing the most efficient path will appear.
+The total cost of the most efficient path will also be calculated and displayed.
+
+Bonus points: A tree with labeled vertices and edges that aligns with the user's input will be rendered.
+
 ## To-Do
 - [x] implement the Kruskal's algorithm
 - [x] implement the Union-Find algorithm
