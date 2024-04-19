@@ -5,20 +5,22 @@
 <form id="matrix-form">
 
     <table>
-       <tr>
-           <th>A</th>
-           <th>B</th>
-           <th>C</th>
-           <th>D</th>
-
-       </tr>
-        @for(int i = 0; i < 4; i++)
-        {
         <tr>
-                @for(int j = 0; j < 4; j++)
+            <th></th>
+            @foreach (var label in rowLabels)
+            {
+                <th>@label</th>
+            }
+
+        </tr>
+        @for (int i = 0; i < 4; i++)
+        {
+            <tr>
+                <td><strong>@rowLabels[i]</strong></td>
+                @for (int j = 0; j < 4; j++)
                 {
                     <td>
-                        <input name="input" />
+                        <input @bind="matrixValues[i, j]" />
                     </td>
                 }
             </tr>
@@ -32,5 +34,45 @@
 
 
 @code {
+    private Kruskal kruskal = new();
+    private int[,] matrixValues = new int[4, 4];
+    private char[] rowLabels = new[] { 'A', 'B', 'C', 'D' };
+    private Vertex[] vertices = new[] { new Vertex('A'), new('B'), new('C'), new('D') };
+    private int totalCost = 0;
+    List<Edge> startingEdges = new();
+
+    private void SubmitForm()
+    {
+
+        //i is the column (to), and j is the row (from)
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                // if (i == 0 && j == 0)
+                //{
+                //set an error message saying there must be no self-cycles
+                //actually, might not have to do anything here
+                //}
+
+
+                var currentValue = matrixValues[i, j];
+                if (currentValue != 0) //value being zero means no edge
+                {
+                    Vertex src = new Vertex(rowLabels[j]);
+                    Vertex dest = new Vertex(rowLabels[i]);
+                    startingEdges.Add(new Edge(currentValue, src, dest));
+                }
+            }
+        }
+
+
+    }
+
+    //when they click a button
+    private List<Edge> FindMinimumSpan()
+    {
+        return kruskal.FindMinimumSpanningTree(startingEdges, out totalCost);
+    }
 
 }
