@@ -17,6 +17,8 @@ namespace Logic
         public Vertex(char _name)
         {
             name = _name;
+            Rank = 0;
+            this.Root = this;
         }
 
         public Vertex GetRoot()
