@@ -4,25 +4,28 @@
 
 <form id="matrix-form">
 
-    <div class="row mb-3">
-        <div class="col">
-            <label for="row1col1">aa</label>
-            <input type="text" class="form-control" id="row1col1" name="row1col1">
-        </div>
-        <div class="col">
-            <label for="row1col2">ab</label>
-            <input type="text" class="form-control" id="row1col2" name="row1col2">
-        </div>
-        <div class="col">
-            <label for="row1col3">ac</label>
-            <input type="text" class="form-control" id="row1col3" name="row1col3">
-        </div>
-        <div class="col">
-            <label for="row1col4">ad</label>
-            <input type="text" class="form-control" id="row1col4" name="row1col4">
-        </div>
-    </div>
-    <!-- Repeat the above row 3 more times to create a 4x4 matrix -->
+    <table>
+       <tr>
+           <th>A</th>
+           <th>B</th>
+           <th>C</th>
+           <th>D</th>
+
+       </tr>
+        @for(int i = 0; i < 4; i++)
+        {
+        <tr>
+                @for(int j = 0; j < 4; j++)
+                {
+                    <td>
+                        <input name="input" />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+
 
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
