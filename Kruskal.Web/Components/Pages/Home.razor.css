@@ -1,7 +1,29 @@
 ﻿body {
 }
 
-form {
+#main-container {
+    display: flex;
+}
+
+#matrix-form {
+    display: flex;
+    width: 40vw;
+}
+
+    #matrix-form table {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+tr {
+}
+
+th, td {
+    width: auto;
+    text-align: center;
+}
 
 
+input {
+    width: 30px;
 }
