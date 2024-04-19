@@ -31,6 +31,8 @@ The user will be able to fill out an adjacency matrix, outlining the edge weight
 - will likely need to implement the Union-Find algorithm for checking cycles
 - using a disjoing set data structure to determine connectivity between vertices and merge sets
 
+
+- for every edge that we check, we have to make sure that its two vertices belong to different trees
 Edge class will have properties
 - source : char
 - destination
