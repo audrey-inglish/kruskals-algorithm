@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kruskal.Web", "Kruskal.Web\Kruskal.Web.csproj", "{4DE1F828-B9F4-4013-8C4C-CCA879BAB17B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6115C6B5-E69B-4E0B-B9E7-C33715B082CE}"
+	ProjectSection(SolutionItems) = preProject
+		notes.md = notes.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{A10190A2-5E2E-4479-A1A1-F85B345AF1A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DE1F828-B9F4-4013-8C4C-CCA879BAB17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DE1F828-B9F4-4013-8C4C-CCA879BAB17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DE1F828-B9F4-4013-8C4C-CCA879BAB17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DE1F828-B9F4-4013-8C4C-CCA879BAB17B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A10190A2-5E2E-4479-A1A1-F85B345AF1A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A10190A2-5E2E-4479-A1A1-F85B345AF1A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A10190A2-5E2E-4479-A1A1-F85B345AF1A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A10190A2-5E2E-4479-A1A1-F85B345AF1A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {361E5028-A434-4EE1-973E-72AB681D9539}
+	EndGlobalSection
+EndGlobal
