@@ -2,10 +2,10 @@
 {
     public class Edge
     {
-        public char Source { get; set; }
-        public char Destination { get; set; }
+        public Vertex Source { get; set; }
+        public Vertex Destination { get; set; }
         public int Weight { get; set; }
-        public string Name { get => $"{Source}" + $"{Destination}"; }
+        public string Name { get => $"{Source.Name}" + $"{Destination.Name}"; }
 
 
         public int CompareTo(Edge other)
