@@ -1,8 +1,8 @@
 ﻿@page "/"
 
-<HeadContent>
+@* <HeadContent>
     <link href="Home.razor.css" rel="stylesheet" />
-</HeadContent>
+</HeadContent> *@
 @* <style>
     body {
         background-color: #F0EBE3;
@@ -57,7 +57,7 @@
             {
                 <line x1="@GetVertexXPosition(edge.Source)" y1="@GetVertexYPosition(edge.Source)"
                       x2="@GetVertexXPosition(edge.Destination)" y2="@GetVertexYPosition(edge.Destination)"
-                      stroke="black" />
+                      style="stroke:black, stroke-width:2" />
             }
         </svg>
     </div>
