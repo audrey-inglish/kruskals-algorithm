@@ -16,14 +16,24 @@
     }
 
 tr {
+    width: 5px;
+    height: 5px;
+    padding: 0;
+    margin: 0;
 }
 
 th, td {
-    width: auto;
+    width: 10%;
+    height: 10%;
+    padding: 0;
+    margin: 0;
     text-align: center;
+
 }
 
 
 input {
     width: 30px;
+    padding: 0em;
+    margin: 0em;
 }
