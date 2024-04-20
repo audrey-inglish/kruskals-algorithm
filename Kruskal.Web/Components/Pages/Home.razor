@@ -1,31 +1,41 @@
 ﻿@page "/"
 
+<HeadContent>
+    <link href="Home.razor.css" rel="stylesheet" />
+</HeadContent>
+@* <style>
+    body {
+        background-color: #F0EBE3;
+    }
+</style> *@
+
 <PageTitle>Home</PageTitle>
 <div id="main-container">
     <form id="matrix-form">
-
-        <table>
-            <tr>
-                <th></th>
-                @foreach (var label in rowLabels)
-                {
-                    <th>@label</th>
-                }
-
-            </tr>
-            @for (int i = 0; i < 4; i++)
-            {
+        <div id="matrix-form-inputs">
+            <table>
                 <tr>
-                    <td><strong>@rowLabels[i]</strong></td>
-                    @for (int j = 0; j < 4; j++)
+                    <th></th>
+                    @foreach (var label in rowLabels)
                     {
-                        <td>
-                            <input @bind="matrixValues[i, j]" />
-                        </td>
+                        <th>@label</th>
                     }
+
                 </tr>
-            }
-        </table>
+                @for (int i = 0; i < 4; i++)
+                {
+                    <tr>
+                        <td><strong>@rowLabels[i]</strong></td>
+                        @for (int j = 0; j < 4; j++)
+                        {
+                            <td>
+                                <input @bind="matrixValues[i, j]" />
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
 
 
 
