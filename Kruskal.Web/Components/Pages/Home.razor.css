@@ -16,8 +16,8 @@ body {
 }
 
 #matrix-form {
-    width:15em;
-    height:25em;
+    width: 15em;
+    height: 25em;
     /*background-color:;*/
 }
 
@@ -34,7 +34,7 @@ tr {
     margin: 0;
 }
 
-th,td {
+th, td {
     width: 32px;
     height: 32px;
     padding: 0;

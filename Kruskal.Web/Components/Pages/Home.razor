@@ -1,17 +1,8 @@
 ﻿@page "/"
 
-@* <HeadContent>
-    <link href="Home.razor.css" rel="stylesheet" />
-</HeadContent> *@
-@* <style>
-    body {
-        background-color: #F0EBE3;
-    }
-</style> *@
-
 <PageTitle>Home</PageTitle>
 <div id="main-container">
-    <form id="matrix-form">
+    <form id="matrix-form" @onsubmit="SubmitForm">
         <div id="matrix-form-inputs">
             <table>
                 <tr>
@@ -20,7 +11,6 @@
                     {
                         <th>@label</th>
                     }
-
                 </tr>
                 @for (int i = 0; i < 4; i++)
                 {
@@ -36,60 +26,57 @@
                 }
             </table>
         </div>
-
-
-
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <div id="graph-div">
-        <svg width="400" height="400">
-            <!-- Draw vertices -->
-            @foreach (var vertex in vertices)
-            {
-                <circle cx="@GetVertexXPosition(vertex)" cy="@GetVertexYPosition(vertex)" r="10" fill="red" />
-                <text>
-                    <tspan x="@((GetVertexXPosition(vertex) - 5))" y="@((GetVertexYPosition(vertex) + 5))">@vertex.Name</tspan>
-                </text>
-            }
+        @if (formSubmitted)
+        {
+            <svg width="400" height="400">
+                <!-- Draw vertices -->
+                @foreach (var vertex in vertices)
+                {
+                    <circle cx="@GetVertexXPosition(vertex)" cy="@GetVertexYPosition(vertex)" r="10" fill="red" />
+                    <text>
+                        <tspan x="@((GetVertexXPosition(vertex) - 5))" y="@((GetVertexYPosition(vertex) + 5))">@vertex.Name</tspan>
+                    </text>
+                }
 
-            <!-- Draw edges -->
-            @foreach (var edge in startingEdges)
-            {
-                <line x1="@GetVertexXPosition(edge.Source)" y1="@GetVertexYPosition(edge.Source)"
-                      x2="@GetVertexXPosition(edge.Destination)" y2="@GetVertexYPosition(edge.Destination)"
-                      style="stroke:black, stroke-width:2" />
-            }
-        </svg>
+                <!-- Draw edges -->
+                @foreach (var edge in startingEdges)
+                {
+                    <line x1="@GetVertexXPosition(edge.Source)" y1="@GetVertexYPosition(edge.Source)"
+                          x2="@GetVertexXPosition(edge.Destination)" y2="@GetVertexYPosition(edge.Destination)"
+                          style="stroke:black; stroke-width:2" />
+                }
+            </svg>
+        }
     </div>
-
 </div>
 
 @code {
     private Kruskal kruskal = new();
     private int[,] matrixValues = new int[4, 4];
     private char[] rowLabels = new[] { 'A', 'B', 'C', 'D' };
-    private Vertex[] vertices = new[] { new Vertex('A'), new('B'), new('C'), new('D') };
+    private Vertex[] vertices = new[] { new Vertex('A'), new Vertex('B'), new Vertex('C'), new Vertex('D') };
     private int totalCost = 0;
-    List<Edge> startingEdges = new();
-    Random random = new Random();
+    private List<Edge> startingEdges = new List<Edge>();
+    private Random random = new Random();
+    private bool formSubmitted = false;
 
     private void SubmitForm()
     {
+        formSubmitted = true;
 
-        //i is the column (to), and j is the row (from)
+        // Process form submission
+        startingEdges.Clear();
+
+        // Populate startingEdges based on matrixValues
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                // if (i == 0 && j == 0)
-                //{
-                //set an error message saying there must be no self-cycles
-                //actually, might not have to do anything here
-                //}
-
-
                 var currentValue = matrixValues[i, j];
-                if (currentValue != 0) //value being zero means no edge
+                if (currentValue != 0)
                 {
                     Vertex src = new Vertex(rowLabels[j]);
                     Vertex dest = new Vertex(rowLabels[i]);
@@ -97,14 +84,6 @@
                 }
             }
         }
-
-
-    }
-
-    //when they click a button
-    private List<Edge> FindMinimumSpan()
-    {
-        return kruskal.FindMinimumSpanningTree(startingEdges, out totalCost);
     }
 
     private int GetVertexXPosition(Vertex vertex)
@@ -116,5 +95,4 @@
     {
         return random.Next(100, 300);
     }
-
 }
