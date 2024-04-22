@@ -1,6 +1,13 @@
 ﻿    @page "/"
 
+    <style>
+        body{
+        background-color: #FEFAF6;
+    }
+</style>
+  
 <PageTitle>Home</PageTitle>
+<nav><h1>Kruskal's Algorithm</h1></nav>
 <div id="main-container">
     <form id="matrix-form" @onsubmit="SubmitForm">
         <div id="matrix-form-inputs">
@@ -33,7 +40,7 @@
         @if (formSubmitted)
         {
             <h3>Initial Graph</h3>
-            <svg width="400" height="400">
+            <svg width="400" height="300">
 
                 @foreach (var edge in startingEdges)
                 {
@@ -43,7 +50,6 @@
                     <line x1="@sourcePosition.x" y1="@sourcePosition.y"
                           x2="@destinationPosition.x" y2="@destinationPosition.y"
                           style="stroke:black; stroke-width:2" />
-                    @* Add labels for the edges here *@
                     <text>
                         <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
                     </text>
@@ -52,9 +58,9 @@
                 <!-- Draw vertices -->
                 @foreach (var vertex in vertices)
                 {
-                    <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#757575" />
+                    <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#102C57" />
                     <text>
-                        <text x="@((vertex.Location.x -5))" y="@((vertex.Location.y + 5))">@vertex.Name </text>
+                        <text fill="#FEFAF6" x="@((vertex.Location.x -6))" y="@((vertex.Location.y + 6))">@vertex.Name </text>
                     </text>
                 }
 
