@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿    @page "/"
 
 <PageTitle>Home</PageTitle>
 <div id="main-container">
@@ -18,8 +18,9 @@
                         <td><strong>@rowLabels[i]</strong></td>
                         @for (int j = 0; j < 4; j++)
                         {
+                            var index = i * 4 + j; // Calculate the index
                             <td>
-                                <input @bind="matrixValues[i, j]" />
+                                <input type="number" @bind="@matrixValues[index]" />
                             </td>
                         }
                     </tr>
@@ -35,19 +36,24 @@
                 <!-- Draw vertices -->
                 @foreach (var vertex in vertices)
                 {
-                    <circle cx="@GetVertexXPosition(vertex)" cy="@GetVertexYPosition(vertex)" r="10" fill="red" />
+                    <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="10" fill="red" />
                     <text>
-                        <tspan x="@((GetVertexXPosition(vertex) - 5))" y="@((GetVertexYPosition(vertex) + 5))">@vertex.Name</tspan>
+                        <span x="@((vertex.Location.x - 5))" y="@((vertex.Location.y + 5))">@vertex.Name</span>
                     </text>
                 }
 
-                <!-- Draw edges -->
                 @foreach (var edge in startingEdges)
                 {
-                    <line x1="@GetVertexXPosition(edge.Source)" y1="@GetVertexYPosition(edge.Source)"
-                          x2="@GetVertexXPosition(edge.Destination)" y2="@GetVertexYPosition(edge.Destination)"
+                    var sourcePosition = edge.Source.Location;
+                    var destinationPosition = edge.Destination.Location;
+
+                    <line x1="@sourcePosition.x" y1="@sourcePosition.y"
+                          x2="@destinationPosition.x" y2="@destinationPosition.y"
                           style="stroke:black; stroke-width:2" />
+                    @* Add labels for the edges here *@
                 }
+
+
             </svg>
         }
     </div>
@@ -55,7 +61,7 @@
 
 @code {
     private Kruskal kruskal = new();
-    private int[,] matrixValues = new int[4, 4];
+    private int[] matrixValues = new int[16]; // Use a flat array
     private char[] rowLabels = new[] { 'A', 'B', 'C', 'D' };
     private Vertex[] vertices = new[] { new Vertex('A'), new Vertex('B'), new Vertex('C'), new Vertex('D') };
     private int totalCost = 0;
@@ -63,11 +69,24 @@
     private Random random = new Random();
     private bool formSubmitted = false;
 
+
+    (int x, int y) vertexAPosition;
+    (int x, int y) vertexBPosition;
+    (int x, int y) vertexCPosition;
+    (int x, int y) vertexDPosition;
+
+
+    protected override void OnInitialized()
+    {
+        // Initialize matrixValues to all zeroes
+        Array.Fill(matrixValues, 0);
+    }
+
     private void SubmitForm()
     {
         formSubmitted = true;
 
-        // Process form submission
+        // Clear startingEdges before populating
         startingEdges.Clear();
 
         // Populate startingEdges based on matrixValues
@@ -75,24 +94,25 @@
         {
             for (int j = 0; j < 4; j++)
             {
-                var currentValue = matrixValues[i, j];
-                if (currentValue != 0)
+                int index = i * 4 + j; // Calculate the index
+                int value = matrixValues[index];
+
+                if (value != 0)
                 {
-                    Vertex src = new Vertex(rowLabels[j]);
-                    Vertex dest = new Vertex(rowLabels[i]);
-                    startingEdges.Add(new Edge(currentValue, src, dest));
+                    Vertex src = vertices[j]; 
+                    Vertex dest = vertices[i];
+
+                    src.Location = GetVertexPosition(src);
+                    dest.Location = GetVertexPosition(dest);
+
+                    startingEdges.Add(new Edge(value, src, dest));
                 }
             }
         }
     }
 
-    private int GetVertexXPosition(Vertex vertex)
+    private (int x, int y) GetVertexPosition(Vertex vertex)
     {
-        return Array.IndexOf(rowLabels, vertex.Name) * 100 + 50;
-    }
-
-    private int GetVertexYPosition(Vertex vertex)
-    {
-        return random.Next(100, 300);
+        return ((Array.IndexOf(rowLabels, vertex.Name) * 100 + 50), (random.Next(100, 300)));
     }
 }

@@ -12,6 +12,7 @@ namespace Logic
         public char Name { get; }
         public int Rank { get; set; } //rank is used when you want to union sets and limit the depth of the overall tree
         public Vertex Root { get; set; }
+        public (int x, int y) Location { get; set; }
 
 
         public Vertex(char name)
