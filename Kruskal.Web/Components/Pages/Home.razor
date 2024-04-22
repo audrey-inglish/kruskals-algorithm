@@ -1,4 +1,5 @@
-﻿    @page "/"
+﻿    @inject NavigationManager NavManager
+    @page "/"
 
     <style>
         body{
@@ -8,6 +9,7 @@
   
 <PageTitle>Home</PageTitle>
 <nav><h1>Kruskal's Algorithm</h1></nav>
+<div id="full-container">
 <div id="main-container">
     <form id="matrix-form" @onsubmit="SubmitForm">
         <div id="matrix-form-inputs">
@@ -106,11 +108,14 @@
                 </svg>
             </div>
 
-            <span>Total Cost: @totalCost</span>
+            <span id="cost-span"><strong>Total Cost:</strong> @totalCost</span>
         }
 
 
     </div>
+</div>
+
+    <button id="reset-button" @onclick="ResetForm">Reset</button>
 </div>
 
 @code {
@@ -132,6 +137,7 @@
         // Initialize matrixValues to all zeroes
         Array.Fill(matrixValues, 0);
     }
+
 
     private void SubmitForm()
     {
@@ -160,6 +166,11 @@
                 }
             }
         }
+    }
+
+    private void ResetForm()
+    {
+        NavManager.NavigateTo(NavManager.Uri, forceLoad: true);   
     }
 
     public void RunKruskal()

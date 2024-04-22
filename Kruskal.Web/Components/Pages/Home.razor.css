@@ -121,12 +121,18 @@ input {
     background-color: #EADBC8;
     padding: 3em;
     margin: 1em;
+    padding-bottom: 2em;
     border-radius: 3em;
 }
 
 text {
     font-weight: 900;
     font-family: 'Times New Roman', Times, serif;
+}
+
+#cost-span {
+    align-self: flex-end;
+    font-size: 120%;
 }
 svg {
     margin: 0em;
@@ -146,6 +152,18 @@ button {
     background-color: #102C57;
     color: #FEFAF6;
     height: 2.5em;
+    font-size: 110%;
+    margin-top: 0.5em;
+}
+#full-container {
+    display:flex;
+    flex-direction: column;
+}
+#reset-button {
+    align-self: flex-end;
+    margin-right: 3.6em;
+    margin-top: 0em;
+    width: 6em;
 }
 
 .vertex-label {
