@@ -1,119 +1,122 @@
 ﻿    @inject NavigationManager NavManager
     @page "/"
 
-    <style>
-        body{
+<style>
+    body {
         background-color: #FEFAF6;
     }
 </style>
-  
+
 <PageTitle>Home</PageTitle>
 <nav><h1>Kruskal's Algorithm</h1></nav>
 <div id="full-container">
-<div id="main-container">
-    <form id="matrix-form" @onsubmit="SubmitForm">
-        <div id="matrix-form-inputs">
-            <table>
-                <tr>
-                    <th></th>
-                    @foreach (var label in rowLabels)
-                    {
-                        <th>@label</th>
-                    }
-                </tr>
-                @for (int i = 0; i < 4; i++)
-                {
+    <div id="main-container">
+        <form id="matrix-form" @onsubmit="SubmitForm">
+            <div id="matrix-form-inputs">
+                <table>
                     <tr>
-                        <td><strong>@rowLabels[i]</strong></td>
-                        @for (int j = 0; j < 4; j++)
+                        <th></th>
+                        @foreach (var label in rowLabels)
                         {
-                            var index = i * 4 + j; // Calculate the index
-                            <td>
-                                <input type="number" @bind="@matrixValues[index]" />
-                            </td>
+                            <th>@label</th>
                         }
                     </tr>
-                }
-            </table>
-        </div>
-        <button type="submit" class="btn btn-primary">Build Tree</button>
-    </form>
-    <div id="initial-graph-div">
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        <tr>
+                            <td><strong>@rowLabels[i]</strong></td>
+                            @for (int j = 0; j < 4; j++)
+                            {
+                                var index = i * 4 + j; // Calculate the index
+                                <td>
+                                    <input type="number" @bind="@matrixValues[index]" />
+                                </td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+            <button type="submit" class="btn btn-primary">Build Tree</button>
+        </form>
+        <div id="initial-graph-div">
             <h3>Initial Graph</h3>
-        @if (formSubmitted)
-        {
-            <div class="svg-container">
+            @if (formSubmitted)
+            {
+                <div class="svg-container">
 
-            <svg width="400" height="400">
+                    <svg width="400" height="400">
 
-                @foreach (var edge in startingEdges)
+                        @foreach (var edge in startingEdges)
+                        {
+                            var sourcePosition = edge.Source.Location;
+                            var destinationPosition = edge.Destination.Location;
+
+                            <line x1="@sourcePosition.x" y1="@sourcePosition.y"
+                                  x2="@destinationPosition.x" y2="@destinationPosition.y"
+                                  style="stroke:black; stroke-width:2" />
+                            <text>
+                                <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
+                            </text>
+                        }
+
+                        <!-- Draw vertices -->
+                        @foreach (var vertex in vertices)
+                        {
+                            <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#102C57" />
+                            <text>
+                                <text fill="#FEFAF6" x="@((vertex.Location.x -6))" y="@((vertex.Location.y + 6))">@vertex.Name </text>
+                            </text>
+                        }
+
+
+                    </svg>
+                </div>
+                @if (!ranKruskal)
                 {
-                    var sourcePosition = edge.Source.Location;
-                    var destinationPosition = edge.Destination.Location;
-
-                    <line x1="@sourcePosition.x" y1="@sourcePosition.y"
-                          x2="@destinationPosition.x" y2="@destinationPosition.y"
-                          style="stroke:black; stroke-width:2" />
-                    <text>
-                        <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
-                    </text>
+                    <button id="kruskal-btn" @onclick="RunKruskal">Run Kruskal's Algorithm</button>
                 }
+            }
+        </div>
+        <div id="minimal-graph-div">
+            <h3>Minimal Spanning Tree</h3>
+            @if (ranKruskal)
+            {
+                <div class="svg-container">
 
-                <!-- Draw vertices -->
-                @foreach (var vertex in vertices)
-                {
-                    <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#102C57" />
-                    <text>
-                        <text fill="#FEFAF6" x="@((vertex.Location.x -6))" y="@((vertex.Location.y + 6))">@vertex.Name </text>
-                    </text>
-                }
+                    <svg width="400" height="400">
+
+                        @foreach (var edge in minimalEdges)
+                        {
+                            var sourcePosition = edge.Source.Location;
+                            var destinationPosition = edge.Destination.Location;
+
+                            <line x1="@sourcePosition.x" y1="@sourcePosition.y"
+                                  x2="@destinationPosition.x" y2="@destinationPosition.y"
+                                  style="stroke:black; stroke-width:2" />
+                            <text>
+                                <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
+                            </text>
+                        }
+
+                        <!-- Draw vertices -->
+                        @foreach (var vertex in vertices)
+                        {
+                            <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#102C57" />
+                            <text>
+                                <text fill="#FEFAF6" x="@((vertex.Location.x -6))" y="@((vertex.Location.y + 6))">@vertex.Name </text>
+                            </text>
+                        }
 
 
-            </svg>
-            </div>
-            <button id="kruskal-btn" @onclick="RunKruskal">Run Kruskal's Algorithm</button>
-        }
+                    </svg>
+                </div>
+
+                <span id="cost-span"><strong>Total Cost:</strong> @totalCost</span>
+            }
+
+
+        </div>
     </div>
-    <div id="minimal-graph-div">
-        <h3>Minimal Spanning Tree</h3>
-        @if(ranKruskal)
-        {
-            <div class="svg-container">
-
-                <svg width="400" height="400">
-
-                    @foreach (var edge in minimalEdges)
-                    {
-                        var sourcePosition = edge.Source.Location;
-                        var destinationPosition = edge.Destination.Location;
-
-                        <line x1="@sourcePosition.x" y1="@sourcePosition.y"
-                              x2="@destinationPosition.x" y2="@destinationPosition.y"
-                              style="stroke:black; stroke-width:2" />
-                        <text>
-                            <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
-                        </text>
-                    }
-
-                    <!-- Draw vertices -->
-                    @foreach (var vertex in vertices)
-                    {
-                        <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#102C57" />
-                        <text>
-                            <text fill="#FEFAF6" x="@((vertex.Location.x -6))" y="@((vertex.Location.y + 6))">@vertex.Name </text>
-                        </text>
-                    }
-
-
-                </svg>
-            </div>
-
-            <span id="cost-span"><strong>Total Cost:</strong> @totalCost</span>
-        }
-
-
-    </div>
-</div>
 
     <button id="reset-button" @onclick="ResetForm">Reset</button>
 </div>
@@ -175,7 +178,7 @@
 
     private void ResetForm()
     {
-        NavManager.NavigateTo(NavManager.Uri, forceLoad: true);   
+        NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
     }
 
     public void RunKruskal()
