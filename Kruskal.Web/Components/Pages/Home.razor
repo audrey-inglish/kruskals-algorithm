@@ -29,9 +29,10 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <div id="graph-div">
+    <div id="initial-graph-div">
         @if (formSubmitted)
         {
+            <h3>Initial Graph</h3>
             <svg width="400" height="400">
 
                 @foreach (var edge in startingEdges)
@@ -72,6 +73,7 @@
     private List<Edge> startingEdges = new List<Edge>();
     private Random random = new Random();
     private bool formSubmitted = false;
+    private bool ranKruskal = false;
 
 
     (int x, int y) vertexAPosition;
@@ -117,6 +119,11 @@
 
     private (int x, int y) GetVertexPosition(Vertex vertex)
     {
-        return ((Array.IndexOf(rowLabels, vertex.Name) * 100 + 50), (random.Next(100, 300)));
+        int x = Array.IndexOf(rowLabels, vertex.Name) * 100 + 50;
+        int y = random.Next(100, 300);
+
+        // implement validation to keep vertices away from each others' x and y axes
+
+        return (x, y);
     }
 }
