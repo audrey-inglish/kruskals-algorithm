@@ -38,7 +38,7 @@
                 {
                     <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="10" fill="red" />
                     <text>
-                        <span x="@((vertex.Location.x - 5))" y="@((vertex.Location.y + 5))">@vertex.Name</span>
+                        <text x="@((vertex.Location.x - 5))" y="@((vertex.Location.y + 5))">@vertex.Name </text>
                     </text>
                 }
 
@@ -99,7 +99,7 @@
 
                 if (value != 0)
                 {
-                    Vertex src = vertices[j]; 
+                    Vertex src = vertices[j];
                     Vertex dest = vertices[i];
 
                     src.Location = GetVertexPosition(src);
