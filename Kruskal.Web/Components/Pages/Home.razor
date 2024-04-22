@@ -151,7 +151,6 @@
     {
         formSubmitted = true;
 
-        // Clear startingEdges before populating
         startingEdges.Clear();
 
         // Populate startingEdges based on matrixValues
@@ -200,7 +199,7 @@
 
     private (int x, int y) GetVertexPositionValidated(Vertex vertex)
     {
-        int x;
+        int x = Array.IndexOf(rowLabels, vertex.Name) * 100 + 50;
         int y;
         int minDistance = 40;
 
@@ -208,24 +207,35 @@
 
         do
         {
-            x = Array.IndexOf(rowLabels, vertex.Name) * 100 + 50;
             y = random.Next(100, 300);
 
             tooClose = false;
 
-            foreach (var v in vertices)
-            {
-                // Calculate the distance between the new vertex and existing vertices
-                double distanceX = Math.Abs(x - v.Location.x);
-                double distanceY = Math.Abs(y - v.Location.y);
 
-                // Check if the new vertex is too close in both x and y directions
-                if (distanceX < minDistance || distanceY < minDistance)
+            for (int i = 0; i < vertices.Length; i++)
+            {
+                if (Math.Abs(y - vertices[i].Location.y) < minDistance)
                 {
                     tooClose = true;
                     break;
                 }
+
             }
+
+
+
+            // foreach (var v in vertices)
+            // {
+            //     // Calculate the distance between the new vertex and existing vertices
+            //     double distanceY = Math.Abs(y - v.Location.y);
+
+            //     // Check if the new vertex is too close in both x and y directions
+            //     if (distanceY < minDistance)
+            //     {
+            //         tooClose = true;
+            //         break;
+            //     }
+            // }
         } while (tooClose);
 
         return (x, y);

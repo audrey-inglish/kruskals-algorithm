@@ -28,10 +28,10 @@ Bonus points: A tree with labeled vertices and edges that aligns with the user's
 - [x] add forms to UI
 - [x] display results of Kruskal's in UI
 - [x] button to call kruskal
-- [ ] reset button
+- [x] reset button
 - [x] display static tree based on input vertices and edges
 - [x] basic tests
-- [x] 
+- [ ] change fonts and overall styling
 - [ ] add self-cycles to UI
 - [ ] implement logic to spread out vertices
 
