@@ -33,14 +33,6 @@
         @if (formSubmitted)
         {
             <svg width="400" height="400">
-                <!-- Draw vertices -->
-                @foreach (var vertex in vertices)
-                {
-                    <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="10" fill="red" />
-                    <text>
-                        <text x="@((vertex.Location.x - 5))" y="@((vertex.Location.y + 5))">@vertex.Name </text>
-                    </text>
-                }
 
                 @foreach (var edge in startingEdges)
                 {
@@ -51,6 +43,18 @@
                           x2="@destinationPosition.x" y2="@destinationPosition.y"
                           style="stroke:black; stroke-width:2" />
                     @* Add labels for the edges here *@
+                    <text>
+                        <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
+                    </text>
+                }
+
+                <!-- Draw vertices -->
+                @foreach (var vertex in vertices)
+                {
+                    <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#757575" />
+                    <text>
+                        <text x="@((vertex.Location.x -5))" y="@((vertex.Location.y + 5))">@vertex.Name </text>
+                    </text>
                 }
 
 
