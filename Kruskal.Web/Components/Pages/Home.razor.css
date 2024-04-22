@@ -102,16 +102,29 @@ input {
     background-color: #ffffff;
 }
 
-#initial-graph-div {
+#initial-graph-div, #minimal-graph-div {
     width: 30em;
     height: 30em;
+    display: flex;
+    flex-direction: column;
     background-color: #EADBC8;
     padding: 3em;
+    margin: 1em;
     border-radius: 3em;
 }
 
 text {
     font-weight: 900;
+}
+svg {
+    margin: 0em;
+    align-self: center;
+    vertical-align:central;
+}
+
+#kruskal-btn {
+    /*margin-top: 3em;*/
+    align-self: flex-end;
 }
 
 .vertex-label {
