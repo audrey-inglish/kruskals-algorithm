@@ -136,6 +136,11 @@
     {
         // Initialize matrixValues to all zeroes
         Array.Fill(matrixValues, 0);
+
+        vertices[0].Location = (50, 50);   // Vertex 'A'
+        vertices[1].Location = (200, 50);  // Vertex 'B'
+        vertices[2].Location = (50, 200);  // Vertex 'C'
+        vertices[3].Location = (200, 200); // Vertex 'D'
     }
 
 
@@ -186,6 +191,39 @@
         int y = random.Next(100, 300);
 
         // implement validation to keep vertices away from each others' x and y axes
+
+        return (x, y);
+    }
+
+    private (int x, int y) GetVertexPositionValidated(Vertex vertex)
+    {
+        int x;
+        int y;
+        int minDistance = 40;
+
+        bool tooClose = false;
+
+        do
+        {
+            x = Array.IndexOf(rowLabels, vertex.Name) * 100 + 50;
+            y = random.Next(100, 300);
+
+            tooClose = false;
+
+            foreach (var v in vertices)
+            {
+                // Calculate the distance between the new vertex and existing vertices
+                double distanceX = Math.Abs(x - v.Location.x);
+                double distanceY = Math.Abs(y - v.Location.y);
+
+                // Check if the new vertex is too close in both x and y directions
+                if (distanceX < minDistance || distanceY < minDistance)
+                {
+                    tooClose = true;
+                    break;
+                }
+            }
+        } while (tooClose);
 
         return (x, y);
     }
