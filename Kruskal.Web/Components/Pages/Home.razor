@@ -34,13 +34,15 @@
                 }
             </table>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Build Tree</button>
     </form>
     <div id="initial-graph-div">
             <h3>Initial Graph</h3>
         @if (formSubmitted)
         {
-            <svg width="400" height="300">
+            <div class="svg-container">
+
+            <svg width="400" height="400">
 
                 @foreach (var edge in startingEdges)
                 {
@@ -66,14 +68,45 @@
 
 
             </svg>
-            <button id="kruskal-btn">Run Kruskal's Algorithm</button>
+            </div>
+            <button id="kruskal-btn" @onclick="RunKruskal">Run Kruskal's Algorithm</button>
         }
     </div>
     <div id="minimal-graph-div">
         <h3>Minimal Spanning Tree</h3>
         @if(ranKruskal)
         {
-            @* then build the minimal spanning  *@
+            <div class="svg-container">
+
+                <svg width="400" height="400">
+
+                    @foreach (var edge in minimalEdges)
+                    {
+                        var sourcePosition = edge.Source.Location;
+                        var destinationPosition = edge.Destination.Location;
+
+                        <line x1="@sourcePosition.x" y1="@sourcePosition.y"
+                              x2="@destinationPosition.x" y2="@destinationPosition.y"
+                              style="stroke:black; stroke-width:2" />
+                        <text>
+                            <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
+                        </text>
+                    }
+
+                    <!-- Draw vertices -->
+                    @foreach (var vertex in vertices)
+                    {
+                        <circle cx="@vertex.Location.x" cy="@vertex.Location.y" r="20" fill="#102C57" />
+                        <text>
+                            <text fill="#FEFAF6" x="@((vertex.Location.x -6))" y="@((vertex.Location.y + 6))">@vertex.Name </text>
+                        </text>
+                    }
+
+
+                </svg>
+            </div>
+
+            <span>Total Cost: @totalCost</span>
         }
 
 
@@ -85,17 +118,13 @@
     private int[] matrixValues = new int[16]; // Use a flat array
     private char[] rowLabels = new[] { 'A', 'B', 'C', 'D' };
     private Vertex[] vertices = new[] { new Vertex('A'), new Vertex('B'), new Vertex('C'), new Vertex('D') };
-    private int totalCost = 0;
+    private int totalCost;
     private List<Edge> startingEdges = new List<Edge>();
+    private List<Edge> minimalEdges = new List<Edge>();
     private Random random = new Random();
     private bool formSubmitted = false;
     private bool ranKruskal = false;
 
-
-    (int x, int y) vertexAPosition;
-    (int x, int y) vertexBPosition;
-    (int x, int y) vertexCPosition;
-    (int x, int y) vertexDPosition;
 
 
     protected override void OnInitialized()
@@ -131,6 +160,13 @@
                 }
             }
         }
+    }
+
+    public void RunKruskal()
+    {
+        minimalEdges = kruskal.FindMinimumSpanningTree(startingEdges, out totalCost);
+        ranKruskal = true;
+        StateHasChanged();
     }
 
     private (int x, int y) GetVertexPosition(Vertex vertex)

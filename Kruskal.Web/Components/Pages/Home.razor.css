@@ -1,5 +1,5 @@
 ﻿:root {
-    --neutral: #000000;
+    --neutral: #FEFAF6;
     --navy: #102C57;
     --tan: #EADBC8;
     --default-border: 4em;
@@ -44,6 +44,8 @@ article {
 #main-container {
     display: flex;
     align-items: center;
+    /*height:80vh;*/
+    
 }
 
 #matrix-form-inputs {
@@ -57,12 +59,21 @@ article {
     margin-left: 10em;
     margin-right: 10em;
     width: 17em;
-    height: 20em;
+    /*height: 20em;*/
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#matrix-form button{
+    height: 2.5em;
+}
+
+#matrix-form, #initial-graph-div, #minimal-graph-div
+{
+    height: 40em;
 }
 
     #matrix-form button {
@@ -103,8 +114,8 @@ input {
 }
 
 #initial-graph-div, #minimal-graph-div {
-    width: 30em;
-    height: 30em;
+    width: 35em;
+    height: 40em;
     display: flex;
     flex-direction: column;
     background-color: #EADBC8;
@@ -115,6 +126,7 @@ input {
 
 text {
     font-weight: 900;
+    font-family: 'Times New Roman', Times, serif;
 }
 svg {
     margin: 0em;
@@ -122,13 +134,22 @@ svg {
     vertical-align:central;
 }
 
-#kruskal-btn {
+.svg-container {
+margin-bottom: 0em;
+height: 90%;
+}
+
+button {
     /*margin-top: 3em;*/
     align-self: flex-end;
+    border-radius: 0.5em;
+    background-color: #102C57;
+    color: #FEFAF6;
+    height: 2.5em;
 }
 
 .vertex-label {
-    color: white;
+    color: #FEFAF6;
 }
 
 

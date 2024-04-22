@@ -25,11 +25,15 @@ Bonus points: A tree with labeled vertices and edges that aligns with the user's
 ## To-Do
 - [x] implement the Kruskal's algorithm
 - [x] implement the Union-Find algorithm
-- [ ] add forms to UI
-- [ ] display results of Kruskal's in UI
-- [ ] display static tree based on input vertices and edges
-- [ ] basic tests
-- [ ] 
+- [x] add forms to UI
+- [x] display results of Kruskal's in UI
+- [x] button to call kruskal
+- [ ] reset button
+- [x] display static tree based on input vertices and edges
+- [x] basic tests
+- [x] 
+- [ ] add self-cycles to UI
+- [ ] implement logic to spread out vertices
 
 ## Implementation Details
 - idea: name edges according to the two vertices they connect
