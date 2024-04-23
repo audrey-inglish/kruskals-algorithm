@@ -66,3 +66,7 @@ choose the number of vertices and expand the matrix.
 - It would be useful to assign coordinates to each vertice for a more accurate display.
 
 # Main Takeaways
+This project was a great way for me to better understand Kruskal's algorithm, as well as practice
+incorporating mathematical concepts into software development. Overall, I'm happy with the
+implementation and the user interface. I thoroughly enjoyed working on this project, and I'm
+glad to have had the opportunity and resources to do so.
