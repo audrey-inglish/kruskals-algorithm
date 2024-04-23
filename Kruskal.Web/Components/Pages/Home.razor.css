@@ -19,7 +19,6 @@ nav {
     color: #FEFAF6;
     align-self: center;
 
-   
 }
 
 h1 {
@@ -45,6 +44,7 @@ article {
     display: flex;
     align-items: center;
     /*height:80vh;*/
+    width: 100%;
     
 }
 
@@ -67,18 +67,22 @@ article {
     align-items: center;
 }
 
-#matrix-form button{
-    height: 2.5em;
-}
 
 #matrix-form, #initial-graph-div, #minimal-graph-div
 {
     height: 40em;
+    width: 80%;
+    flex:1; 
+    margin-left: 3em;
+    margin-right: 3em;
+
 }
 
     #matrix-form button {
-        align-self: flex-end;
-        margin-right: 1.7em;
+        height: 2.5em;
+        align-self: center;
+        /*margin-right: 1.7em;*/
+        margin-left: 1.6em;
         background-color: #102C57;
         border-color: #102C57;
     }
@@ -118,12 +122,15 @@ input {
     height: 40em;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: #EADBC8;
     padding: 3em;
     margin: 1em;
     padding-bottom: 2em;
     border-radius: 3em;
+    /*box-shadow: 10px,10px ,#b0916a ;*/
 }
+
 
 text {
     font-weight: 900;
@@ -158,6 +165,7 @@ button {
 #full-container {
     display:flex;
     flex-direction: column;
+    width: 90vw;
 }
 #reset-button {
     align-self: flex-end;

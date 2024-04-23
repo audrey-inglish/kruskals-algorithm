@@ -1,11 +1,18 @@
 ﻿    @inject NavigationManager NavManager
     @page "/"
 
-<style>
-    body {
-        background-color: #FEFAF6;
-    }
-</style>
+<HeadContent>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aleo:ital,wght@0,100..900;1,100..900&family=Sedan:ital@0;1&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #FEFAF6;
+            font-family: "Aleo", serif;
+    </style>
+</HeadContent>
+
 
 <PageTitle>Home</PageTitle>
 <nav><h1>Kruskal's Algorithm</h1></nav>
@@ -74,7 +81,7 @@
                                         dy = 1;
                                         break;
                                     case 'B':
-                                        if (sourcePosition.y > vertices[2].Location.y)
+                                        if (sourcePosition.y > vertices[2].Location.y || sourcePosition.y > vertices[0].Location.y)
                                         {
                                             dx = 1;
                                             dy = 0;
@@ -217,8 +224,8 @@
                     Vertex src = vertices[j];
                     Vertex dest = vertices[i];
 
-                    src.Location = GetVertexPosition(src);
-                    dest.Location = GetVertexPosition(dest);
+                    src.Location = GetVertexPositionValidated(src);
+                    dest.Location = GetVertexPositionValidated(dest);
 
                     startingEdges.Add(new Edge(value, src, dest));
                 }
@@ -251,43 +258,32 @@
     private (int x, int y) GetVertexPositionValidated(Vertex vertex)
     {
         int x = Array.IndexOf(rowLabels, vertex.Name) * 100 + 50;
-        int y;
-        int minDistance = 40;
+        int y = random.Next(100, 300);
+        int minDistance = 55;
+        bool converged = false;
+        int maxIterations = 1000;
+        int iteration = 0;
 
-        bool tooClose = false;
-
-        do
+        while (!converged && iteration < maxIterations)
         {
-            y = random.Next(100, 300);
+            converged = true;
 
-            tooClose = false;
-
-
-            for (int i = 0; i < vertices.Length; i++)
+            // Adjust the y-coordinate to satisfy the minimum distance constraint
+            foreach (var otherVertex in vertices)
             {
-                if (Math.Abs(y - vertices[i].Location.y) < minDistance)
+                if (vertex != otherVertex)
                 {
-                    tooClose = true;
-                    break;
+                    if (Math.Abs(y - otherVertex.Location.y) < minDistance)
+                    {
+                        // Move the y-coordinate away from the other vertex
+                        y += (y < otherVertex.Location.y) ? -1 : 1;
+                        converged = false;
+                    }
                 }
-
             }
 
-
-
-            // foreach (var v in vertices)
-            // {
-            //     // Calculate the distance between the new vertex and existing vertices
-            //     double distanceY = Math.Abs(y - v.Location.y);
-
-            //     // Check if the new vertex is too close in both x and y directions
-            //     if (distanceY < minDistance)
-            //     {
-            //         tooClose = true;
-            //         break;
-            //     }
-            // }
-        } while (tooClose);
+            iteration++;
+        }
 
         return (x, y);
     }
