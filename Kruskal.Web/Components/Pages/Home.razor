@@ -57,6 +57,55 @@
                             <text>
                                 <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
                             </text>
+
+
+                            @if (edge.Source.Name.Equals(edge.Destination.Name))
+                            {
+                                var cx = sourcePosition.x + 40;
+                                var cy = sourcePosition.y - 40;
+                                int dx = 0;
+                                int dy = 0;
+
+
+                                switch (edge.Source.Name)
+                                {
+                                    case 'A':
+                                        dx = 0;
+                                        dy = 1;
+                                        break;
+                                    case 'B':
+                                        if (sourcePosition.y > vertices[2].Location.y)
+                                        {
+                                            dx = 1;
+                                            dy = 0;
+                                        }
+                                        else
+                                        {
+                                            dx = -1;
+                                            dy = 0;
+                                        }
+                                        break;
+                                    case 'C':
+                                        if (sourcePosition.y > vertices[1].Location.y)
+                                        {
+                                            dx = 1;
+                                            dy = 0;
+                                        }
+                                        else
+                                        {
+                                            dx = -1;
+                                            dy = 0;
+                                        }
+
+                                        break;
+                                    case 'D':
+                                        dx = 0;
+                                        dy = -1;
+                                        break;
+                                }
+
+                                <path d="M @(sourcePosition.x) @(sourcePosition.y) a 22 22 0 1 0 @(dx) @(dy)" fill="none" stroke="#cfbea9" stroke-width="2" />
+                            }
                         }
 
                         <!-- Draw vertices -->
@@ -96,6 +145,8 @@
                             <text>
                                 <text x="@(((sourcePosition.x + destinationPosition.x)/2)-6)" y="@(((sourcePosition.y + destinationPosition.y)/2)-6)">@edge.Weight</text>
                             </text>
+
+
                         }
 
                         <!-- Draw vertices -->
